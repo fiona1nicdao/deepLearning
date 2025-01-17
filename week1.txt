@@ -1,0 +1,24 @@
+image analysis - vision transformers - image classficatio non image NET  
+    jan 16 - 70% / jan 22 91% accuracy 
+    look at week 4-5 week website: https://paperswithcode.com/sota/image-classification-on-imagenet
+alexnet : 60% accuracy : Gluon .ai model zoo >> clasifcation 
+    what did they brought to the table ? accuracy (veritcal)/ sample # (horizontal)
+
+ppt AlexNet (slide 41)
+    2012: error rate 15% AlexNet
+    2013: error rate 13%  Zfnet
+    batch normalization / resizual normalization 
+    MPL - layer normalization 
+    restnet : verital / horizontal - /depth of layer / 
+    channels per layers ex: rbg / channel correspond to the filters 
+    convoluational layers
+        layer will have a lot of channels 
+        1024 channels then produce 1024 values then scale it (filters), usually don't scale up because 1 is the largest so that 1 is the most important feature 
+        the most important channels / filters are choosen 
+
+    2017 : transformers , don't need to have so many layers / but want to be wide 
+
+another paper 16 by 16, batches ? generative models : use CCN / convoluational layers / most generative models use transformers and conluvion - call it diffusion models 
+deep learning : responsible for all the AI boom 
+questions: opimization, prepared with questions / working with colab / 
+
