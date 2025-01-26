@@ -1,0 +1,139 @@
+Panopto : Lecture 1 Introduction to Deep Learning 
+01 : What is deep Learning and why ? 
+    - subsection of machine learning and inspired by the brain / artifical nueral networks 
+    - deep learning predictions with images and test 
+    - many different archectural designs 
+    -can process data from images / extract features / have different and multiple layers 
+    - make predictions even with unseen data 
+    - deep learing have been here for a while and help 
+    Why now ? 
+    - a lot of data to use: wiki and internet 
+    - better hardware : GPU / fast compuation models 
+    - software : open source libraries: tensor flow / torch 
+02 The Perceptron 
+    the foundation of neural netowrks is the perception 
+    The percetion 
+    - type of neuron that takes a multiple inputs and produces a binary output 
+    - # of neuron X # of weights X bias -> and use a step function to get a binary output 
+    - example : NAND : with bias 
+    - can use with all logic gates 
+    - can build larger and complex logic gates 
+    - example : half-adder logic gates, the implementation adds two binary bits can by added by 5 AND gates (5 nuerons / perceptron  )
+    - DOT PRODUCT !!! matrix 
+    - g is the actiation function 
+    - nuerons = units 
+    - bias = are added value used after taking the dot product of weights and inputs 
+    - we can use multiple activation funtions / why do we need non-linearity ? 
+03 Linear Classifier and activations 
+    Linear Classifier : https://playground.tensorflow.org/ 
+    - can see multiple datasets, 
+    - linear separation of the data = linear activation 
+    - more complex datasets / we will need more than just linear operations - in the example is actiation using sigmoid to establish a boundary line / decision boundard 
+    - most common actiation functions : tanh, ReLU, sigmoid  - common used in early deep learing 
+    - other actitation functions: we will use some of these 
+04 Model's Loss 
+    - want to minimize loss, use the ground truth to analysis how well are parameters (weights) are 
+    - sigmoid can use use for a probablity function 
+    - sigmoid in this scenario is very intutitive becaus it produces non-linearity but also product values that resumbles that probabilty distribution between 0 and 1 / a simple derivative if we want to go or follow the gradients, as we will discuss in a little bit, it also have some issues or some cons which is : it can saturates and derivative can vanish ( discuss in next class )
+    Defining the loss 
+    - it is very important based on the problem that we have in hand 
+    - we want to deicde on the proper lsos that we can to minimize throughout the optimization of the algorithm and finding the best w and biases 
+    - regression loss : the mean square error / the mean absolute error 
+    - clasifcation losses : hinge loss / multi-class SVM loss  and cross entropy loss / negative log likeihood 
+    Issues with SVM loss :
+    - we want it to be differentiable so we can follow or apply gradient based optimization methods to it / it is basically make the distinction between the scores of the correct class that should be dysfunctiona from all other classes or the summation of all other scores AND with addition to a safe margin, we will see an example of how to implement the SVM loss, and hopefully we have it clear 
+    EXAMPLE : image of dog, cat, horse 
+    - add one b/c it is the safe margin 
+    - formula : max(0, (incorrect class #) - (correct class)+ 1 ) + ... for other incorrect classes = if equals zero is correct predictions / not zero is not correct predictions 
+    What is the possible minimum and maximum values of the loss ? 
+        can be zero, or higher than zero and can be positive infinity 
+    At initialization W is small so all s is around zero, what is the loss ? 
+        if we initialize w with very small values meaning that if we have all the score. if we multiply x by W and all the scores are almost zero because w are very small on zero. Then we will find that this will evaluation to almost one every time. And then if we measure between all classes except the ground truth class each time, then the loss should be the number of classes minus one. IF we  include the class, if we include j in our calculatin of the sum, then it will end up with the loss should be the same as the number of clases 
+    What if we used this losss ? 
+        so we use the max and the difference here between the predicted or other classes and the right class and add the safe margin. what if we want to square the value instead ? - in short this will make a whole different loss function, but we can apply it in a different scenario 
+        CHECK !!! DO IT 
+    Defining the loss Hinge Loss (slide 42)
+    - we can implement simple SVM, loss code or implementation here just by following the numpy implementation, so we have the scores here just by w multiplying or the dot product with x. Then we want to calculate the score by the scores of y and then add the margin (just note that the margin does not need to be one it can be a different number ). Setup the right class to be equal to zero so its not calculated. Then we want to sum all these margins 
+    -Suppose that we found a W such as Lsvm = 0, is this W unquie ? 
+        of course not! because two w will still help us reach to a loss of zero . so the weights can grow larger and the loss can be zero 
+    Defining the loss: Cross entropy (slide  45)
+    - this resembles the negative log likelihood or the logistic loss maintained and implemented by the sigmoid at each output unit. 
+    - -98.8 and 437.9 are the linear values. if we apply, for example sigmoid to this value then it will produce something near to zero here (-98.8). And near to one here (437.9) so for every values that produce by the sigmoid, it will be from 0 to 1 here(-98.8) and from 0 to 1 here(437.9). Meaning that we can for every unit in the output layer, we can signal the probabilyt of this sample to belong to this category. 
+    Defining the loss: cross entropy (slide 47)
+    - calculating, using the sigmoid or calculating the logistic loss can be very simple and very each to calculate and optimize 
+    slide 48 
+    - g = loss (example is it can be sigmoid, it will say we will optain a values from 0-1 for the output. meaning that for every unit in the output layer )
+    - this image is a multi-output perceptron 
+    - dot product of weights and inputs(pixels in this example ) = scalar values + biases = output score then apply sigmoid and will be a value between 0 -1 for the three outputs 
+    slide 49 
+    - the output is a vector of three units. What is the right loss ? 
+        this is where we want to have an alternative or a generalization of the sigmoid is the generalize over the entire model or the entire classes rather than for every separate unit by itself. So we want to look into a generalization of having probablity distribution at the output layer that resembles the whole prabability of a given input oto what class they belong --> softmax function 
+    slide 50
+    - the softmax function, is a generalization of the sigmoid and will produce a probability estimate for all the classes across all units 
+    - we have a softmax that is commonly used for the output activation for multiclass clasification problem 
+    Defining the loss : softmax (slide 51)
+    -example with unnomalized scores. 1st take the score and multiple exponent to get all positive values 2nd normalize the score by dividing by the summation of all the scores therefore  normalize them. will get values that will range between 0  and 1. and all of them will sum up to one. and then we can say that this is the probabiliyt of having this image classified as a dog for the first. We can calculate the loss by taking the negative log of the probability = loss of the sample 
+    -so this will show us that this is well resemble the negation of logarithm of a probability of the entire correct classficiation
+    - and this is equivalent to the multi nominal logistic regression
+    - and it's very numerically stable. And it resembles and sum up to the whole uh probability for the entire uh model 
+    slide (57 )
+    - what is the possible minimum and maximum values of the loss li ? 
+        base on the equation here the minus log , either the minumum value will be zero and the maximum value would be one. so given that the probablity are from 0 to 1. the smallest value will be zero, and the largest value in the probability will be one. 
+        minus log one = zero loss 
+        minus log zerp = infinity 
+        min = zero, max = inifity 
+    slide 58 -60
+    - the softmax (compared to SVM) will keep the loss value higher a little bit for a better optimization 
+    - softmax will always seek, a better optimization rather than the softmax will settle for anything that satisfy the margin 
+    slide 63 
+    - suppose that we found a W such that L(W) around zero. Is this W unique ? 
+        so we learned that from SVM, this w would not be unique and we can go higher and higher with W. and thsi will bring us to a regulazation and why we need a better kind of how to find a better W that helps us reach a very low loss and keep the model simple and far from overfitting 
+    slide 66 
+    - we can have and we train this model F using the training data. so we have always a data loss that we calculate similar to what we did earlier in the softmax or SVM loss.And we find W that will satify this loss. We can continue to improve and we could find a very large w that is a high order BUT we will introduct overfitting. SO the model will not perform well with the test data but will perform well with the training data = overfitting 
+    regulazation slide 70 
+    - so we want to introduct another term to the data loss which is organization loss which try to keep w contained and manage SO we don't go to higher values of W's and try to avoid overfitting. This wil bring us to Ockham Razor concepts amoung competing hypothesis: the simplest is the best and we want to get the simplest w and the simplest w that gets us the lowest loss 
+    Slide 72 
+    -there are many methods of regularization introduced in deep learning and (see list ) = ALL help with control W and prevent overfitting
+    - R = regularization of w or set of parameters of the model and lambda is the strength for how much we want to enforce this loss or scale this loss 
+    slide 73 : regularization : L2 regularization - weight decay 
+    - for example: L2 regularization we call this weight decay: we try to minimize the weights and keep it as small as possible 
+    - matric multiplication / vector multiplication of the Weights (w) * samples (X) 
+    -what weights the L2 regularization prefers ? 
+        W2 would be better than W1 because W2 have smaller weights 
+    - What weights the L1 regularization prefers ? 
+        L1 is the absolute values of the weights so we don't have large positive or large negative values, we want to keep them as small as possible, meaning we want to push values toward zero. 
+        W1 becuase L1 regularization will prefer W1 because will have a lower value than W2 - L1 LIKE ZEROS (weight sparsity )
+06 opimization
+    slide 78 So how to find the best w? 
+        opimization should find w to allow for a minimal loss and a better prediction 
+    slide 82 : how do we find the best w ? and where to start ? 
+        start with randomly initialize W 
+        search for W with lower loss 
+        1st strategy : random search NOT good / not efficient = brute force 
+        2nd strategy : Follow the gradient, and the gradient can be indicated by the derivative of the loss function 
+            - we want to study the gradient, the gradient will always put us or direct us to right direction 
+    slide 87 : optimziation : follow the gradient 
+    - the derivative gives us the slope / the rate of change 
+    - it can be expressed by the limit as x approaches zero of f(x) plus h minus f(x) over h. So this will indicate the rate of change or the slope.
+    - so theconcept of generalized to multiple dimensions by just calculating the partial derivatives along each dimension 
+    - the gradient points us to the direction of the steeps ascent for a function HOWEVER we want to minimize the loss, so we want to move in the opposite direction or the steepest DESCENT so we want to go to the other direction, which is why we want to go to the negative direction of the gradient 
+    this is the BASIS of all gradiet based optimization methods like gradient descent 
+    slide 88 
+    - follow the numeric value --> only an aproxmiation 
+    slide 96 : optimization following the gradient 
+    - its aproxmiation, so we can use calculus to calculate the gradient analytical gradients using the derivative 
+    - so we can express the loss as a function, the function of w
+    - then we can calculate the gradient using the derivates of that function respect to w 
+    - so very fast to compute and exact and can be used to iteratively guide us to the best w optimization of the weights 
+    slide 98 : optimization gradient descent 
+    - we can step every time in the negative direction of the gradient to improve w 
+    - vanilla gradient descent algorithm 
+    - calculating for all the samples (N )is expensive for large datasets so we do mini-batch gredient descent 
+    slide 105 : optimization mini-batch gradient descent 
+    - so if we use mini batches then we just need to provide a way to sample from the training data at batch 
+    Stochastic gradient descent (SGD)
+    - use one sample  
+    - in practice we use mini -batch / so when we say stochastic gradient descent or SGD we refer to a mini batch gradient descent algorithm 
+    - so mini batch how we want to decide on the mini batch to calculate the loss and gradients - so mini batch can be a hypermeter that we can cross validate an study and explore different sizes and see which one provides the best way to improve or optimize our model 
+    - NEED to consider memory constriants / so larger data ,we can't fit larger batches of samples into the GPU or computation or RAM units 
+    - when we decide on the mini batch size, we usually do use a power of two in a practice meaning eight , 16, 32, 64 and so on 
