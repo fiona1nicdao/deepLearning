@@ -1,0 +1,59 @@
+Lecture notes week 3: Jan 30 
+we want : 
+    dataset
+        do preprocessing: normalized/ classification models
+        Augment 
+            classes  SMOTE
+            sampling 
+            *** important : help performance 
+        images --> [0.1 ]
+                   [-1, 1]
+        shapes ( want it to be balance )
+        class_weights (balanced or not balanced )
+            if not balanced , balanced it out 
+        biases 
+        targets : one hot encoding , classlabels, continual values 
+    Model 
+    Evaluation 
+
+    Training - testing 
+    classification : 
+        binaary : accuracy or F1 score (recall / presicion ), area under the curve ACV , FAR / FRR 
+        multiclass 
+    regression 
+        track for accuracy ? : MAE , MSE 
+
+    example : email spam
+        10000 emails 
+        9000 : good emails 
+        1000 : spam
+        Accurancy = 99% 
+        80% trainign / 20 testing 
+        want to use F1 score because the data is imbalanced 
+
+    Data-shape 
+    MODEL : what defines the model ? 
+        MLP : what to know the input shape, 
+            the first layer what the number of nuerons 
+            units of nuerons 
+            output layer 
+            activation : soft max 
+    Trainging Algorithm 
+
+    MNIST dataset : 28 X 28 X 1 
+        28 X 28  input shape 
+
+    Keras : tf (Tensorflow) 
+    tf. keras. layers 
+     input layer 
+     dense layers : hidden layers, dense layer includes the output layer, Dense(10, activiates --> softmax)
+    we want to loss optimizer, and metrics 
+    loss : the one hot encoding / binary 
+    optimier : Adam, AGD, etc
+    Metrics: recall, accruacy, presicion
+    building, compiling, Evaluation, the predicted values 
+
+    REVIEW ONE HOT ENCODING 
+    softmax : 0.01, 0.1 , 
+    argmax(0.7) output from the model 
+        predictived vs the ground truth 
